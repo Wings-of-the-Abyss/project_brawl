@@ -9,7 +9,7 @@ const MAX_HEALTH : float = 50.0
 @export_range(0.5, 2.0, 0.1) var DEF: float = 1.0
 @export_range(0.5, 2.0, 0.1) var SPEED: float = 1.0
 
-var parent_player: CharacterBody2D
+var parent_movementnode: CharacterBody2D
 var dir: Vector2 = Vector2.RIGHT
 var attack_cooldown: float = 0.0
 
@@ -30,12 +30,12 @@ var CurrentStatus = {
 }
 
 func _ready() -> void:
-	parent_player = get_parent()
-	parent_player.CharacterNode = self
-	paired_controller = parent_player.paired_controller
+	parent_movementnode = get_parent()
+	parent_movementnode.CharacterNode = self
+	paired_controller = parent_movementnode.paired_controller
 
 func _physics_process(delta: float) -> void:
-	rotation = parent_player.direction.angle()
+	rotation = parent_movementnode.direction.angle()
 	for eff in CurrentStatus.keys():
 		if CurrentStatus.get(eff) > 0:
 			CurrentStatus.set(eff, CurrentStatus.get(eff)-delta)
@@ -68,7 +68,7 @@ func take_damage(dmg: float, kb: Vector2, additional_args: Dictionary = {}):
 	if HEALTH <= 0.0:
 		print("DEAD!")
 		return
-	parent_player.velocity = kb*300.0
+	parent_movementnode.velocity = kb*300.0
 	for a in additional_args.keys():
 		CurrentStatus.set(a, CurrentStatus.get(a)+additional_args.get(a))
 	CurrentStatus.set(StatusEffects.STUN, CurrentStatus.get(StatusEffects.STUN)+0.05)
@@ -90,5 +90,6 @@ func atk_LT_B() -> void:
 func counter_Y() -> void:
 	block_duration = MAX_block_duration
 	block_cooldown = MAX_block_cooldown
+
 func counter_success() -> void: 
 	pass
