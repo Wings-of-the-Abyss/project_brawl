@@ -31,13 +31,16 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 	var move_vec = Vector2(Input.get_joy_axis(paired_controller, JOY_AXIS_LEFT_X), Input.get_joy_axis(paired_controller, JOY_AXIS_LEFT_Y))
+	if ControllerHandler.KEYBOARD_MODE: move_vec = Input.get_vector("left","right","up","down")
 	if move_vec:
 		direction = move_vec
 		velocity = velocity.lerp(move_vec*SPEED*CharacterNode.SPEED, ACCELERATION)
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, ACCELERATION)
 	
-	if Input.is_joy_button_pressed(paired_controller, JOY_BUTTON_X) and dash_duration <= 0 and dashcd <= 0:
+	var dash_input = Input.is_joy_button_pressed(paired_controller, JOY_BUTTON_X) or Input.is_action_just_pressed("dash")
+	
+	if dash_input and dash_duration <= 0 and dashcd <= 0:
 		dash_duration = MAX_dash_duration
 		velocity = direction * (SPEED*8)
 	

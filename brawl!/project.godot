@@ -19,6 +19,49 @@ config/icon="res://icon.svg"
 
 ControllerHandler="*res://autoloads/ControllerHandler.gd"
 
+[input]
+
+left={
+"deadzone": 0.2,
+"events": []
+}
+right={
+"deadzone": 0.2,
+"events": []
+}
+up={
+"deadzone": 0.2,
+"events": []
+}
+down={
+"deadzone": 0.2,
+"events": []
+}
+dash={
+"deadzone": 0.2,
+"events": []
+}
+block={
+"deadzone": 0.2,
+"events": []
+}
+attack1={
+"deadzone": 0.2,
+"events": []
+}
+attack2={
+"deadzone": 0.2,
+"events": []
+}
+alt1={
+"deadzone": 0.2,
+"events": []
+}
+alt2={
+"deadzone": 0.2,
+"events": []
+}
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
