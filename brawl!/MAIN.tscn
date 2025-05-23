@@ -1,17 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://dbcmx44n2tvxo"]
+[gd_scene load_steps=4 format=3 uid="uid://dbcmx44n2tvxo"]
 
 [ext_resource type="PackedScene" uid="uid://dnti8oe6fvjse" path="res://player/playermovement.tscn" id="1_0llpg"]
+[ext_resource type="PackedScene" uid="uid://1p5j3eh7piyk" path="res://characters/brawler/brawler_char.tscn" id="2_78rud"]
 [ext_resource type="Script" uid="uid://blixqvsnb2wjm" path="res://characters/CharacterBase.gd" id="2_a1u8q"]
 
 [node name="MAIN" type="Node2D"]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_0llpg")]
-position = Vector2(641, 229)
 collision_layer = 0
 collision_mask = 511
 paired_controller = 0
 
-[node name="CharacterBase" type="Node2D" parent="CharacterBody2D"]
+[node name="BrawlerChar" parent="CharacterBody2D" instance=ExtResource("2_78rud")]
+
+[node name="CharacterBody2D2" parent="." instance=ExtResource("1_0llpg")]
+position = Vector2(203, 174)
+paired_controller = 1
+
+[node name="CharacterBase" type="Node2D" parent="CharacterBody2D2"]
 position = Vector2(-641, -229)
 script = ExtResource("2_a1u8q")
 metadata/_custom_type_script = "uid://blixqvsnb2wjm"

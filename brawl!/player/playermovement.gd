@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	if CharacterNode.CurrentStatus.get(CharacterNode.StatusEffects.STUN) > 0:
 		move_and_slide()
 		return
-	var move_vec = Vector2(Input.get_joy_axis(paired_controller, JOY_AXIS_LEFT_X), Input.get_joy_axis(paired_controller, JOY_AXIS_LEFT_Y))
+	var move_vec = Vector2(Input.get_joy_axis(paired_controller, JOY_AXIS_LEFT_X), Input.get_joy_axis(paired_controller, JOY_AXIS_LEFT_Y)).limit_length(1.0)
 	if ControllerHandler.KEYBOARD_MODE: move_vec = Input.get_vector("left","right","up","down")
 	if move_vec:
 		direction = move_vec

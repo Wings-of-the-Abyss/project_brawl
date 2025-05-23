@@ -16,4 +16,4 @@ func controller_update(device: int, connected: bool) -> void:
 			CONTROLLER_NODE_MAP[device] = null
 	else:
 		CONTROLLER_NODE_MAP[device] = null
-	KEYBOARD_MODE = !Input.get_connected_joypads().is_empty()
+	KEYBOARD_MODE = Input.get_connected_joypads().is_empty()
