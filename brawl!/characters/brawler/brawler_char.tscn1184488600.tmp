@@ -5,14 +5,14 @@
 [ext_resource type="Script" uid="uid://cm7txikk5gmmw" path="res://characters/brawler/brawler_lt_a.gd" id="3_y5dqw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qb25f"]
-size = Vector2(32, 32)
+size = Vector2(32, 16)
 
 [sub_resource type="GDScript" id="GDScript_y5dqw"]
 script/source = "extends \"res://characters/brawler/brawler_HitboxCore.gd\"
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y5dqw"]
-size = Vector2(24, 32)
+size = Vector2(24, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fpobv"]
 size = Vector2(48, 48)
@@ -51,10 +51,6 @@ shape = SubResource("RectangleShape2D_qb25f")
 collision_layer = 0
 collision_mask = 510
 script = SubResource("GDScript_y5dqw")
-knb_mult = 2.0
-attack_args = Dictionary[int, float]({
-0: 0.5
-})
 metadata/_custom_type_script = "uid://dqmvlk5p1wmdf"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitboxes/RT_A"]
@@ -66,9 +62,8 @@ collision_layer = 0
 collision_mask = 510
 script = ExtResource("2_qb25f")
 dmg_mult = 0.75
-knb_mult = 2.0
 attack_args = Dictionary[int, float]({
-0: 0.3
+0: 0.5
 })
 metadata/_custom_type_script = "uid://dqmvlk5p1wmdf"
 

@@ -35,10 +35,19 @@ func _ready() -> void:
 	paired_controller = parent_movementnode.paired_controller
 
 func _physics_process(delta: float) -> void:
-	rotation = parent_movementnode.direction.angle()
+	if parent_movementnode.lock <= 0.0:
+		rotation = parent_movementnode.direction.angle()
 	for eff in CurrentStatus.keys():
 		if CurrentStatus.get(eff) > 0:
 			CurrentStatus.set(eff, CurrentStatus.get(eff)-delta)
+	
+	if block_cooldown > 0:
+		block_cooldown -= delta
+	if block_duration > 0:
+		block_duration -= delta
+	if attack_cooldown > 0:
+		attack_cooldown -= delta
+	
 	if attack_cooldown <= 0:
 		if Input.get_joy_axis(paired_controller, JOY_AXIS_TRIGGER_RIGHT) or Input.is_action_pressed("alt1"):
 			if Input.is_joy_button_pressed(paired_controller, JOY_BUTTON_A) or Input.is_action_pressed("attack1"):
@@ -57,21 +66,16 @@ func _physics_process(delta: float) -> void:
 				atk_B()
 	if block_cooldown <= 0.0 and (Input.is_joy_button_pressed(paired_controller, JOY_BUTTON_Y) or Input.is_action_just_pressed("block")):
 		counter_Y()
-	
-	if block_cooldown > 0:
-		block_cooldown -= delta
-	if block_duration > 0:
-		block_duration -= delta
 
 func take_damage(dmg: float, kb: Vector2, additional_args: Dictionary = {}):
 	HEALTH -= dmg/DEF
 	if HEALTH <= 0.0:
 		print("DEAD!")
 		return
-	parent_movementnode.velocity = kb*300.0
+	parent_movementnode.velocity = kb*800.0
 	for a in additional_args.keys():
 		CurrentStatus.set(a, CurrentStatus.get(a)+additional_args.get(a))
-	CurrentStatus.set(StatusEffects.STUN, CurrentStatus.get(StatusEffects.STUN)+0.05)
+	parent_movementnode.lock = 0.05
 
 #Override these in extending nodes to make behavior
 func atk_A() -> void:
